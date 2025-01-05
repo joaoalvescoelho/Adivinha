@@ -8,8 +8,11 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class ScrappingSite {
+
+    private ScrappingRepo scrappingRepo;
 
     public void scrapping() {
         try {
@@ -55,8 +58,14 @@ public class ScrappingSite {
                             String altura = player2.select(".field--name-field-sl-person-height .field--item").text();
                             String camisola = player2.select(".field--name-field-sl-person-number .field--item").text();
                             String nacionalidade = player2.select(".field--name-field-sl-person-birth-place .field--item").text();
+                            String foto = player2.select("field--name-field-sb-person-full-picture").text();
 
-                            Jogador jogador1 = new Jogador(nome, posicao, periodo, jogos, golos, link);
+                            Jogador jogador1 = new Jogador(UUID.randomUUID(), nome, posicao, Short.parseShort(camisola), Short.parseShort(golos),
+                                    Short.parseShort(jogos), pe, Short.parseShort(altura), nacionalidade, periodo, foto.getBytes());
+
+                            JogadorJPA jogadorJPA = Mapper.jogador2Jpa(jogador1);
+
+                            scrappingRepo.save(jogadorJPA);
 
                             jogadores.add(jogador1);
                         }

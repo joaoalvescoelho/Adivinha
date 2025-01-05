@@ -1,35 +1,30 @@
 package com.slb.adivinha.jogador.scrapping;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 import java.util.UUID;
 
-public class Jogador {
+@Entity
+@Table(name = "players")
+public class JogadorJPA {
 
-    private UUID id;
-    private String nome;
-    private String posicao;
-    private short numero;
-    private short golos;
-    private short jogos;
-    private String pe;
-    private short altura;
-    private String pais;
-    private String periodoEquipa;
-    private byte[] foto;
+    public UUID id;
+    public String nome;
+    public String posicao;
+    public short numero;
+    public short golos;
+    public short jogos;
+    public String pe;
+    public short altura;
+    public String pais;
+    public String periodoEquipa;
+    public byte[] foto;
 
-    public Jogador(UUID id, String nome, String posicao, short numero, short golos, short jogos, String pe, short altura, String pais, String periodoEquipa, byte[] foto) {
-        this.id = id;
-        this.nome = nome;
-        this.posicao = posicao;
-        this.numero = numero;
-        this.golos = golos;
-        this.jogos = jogos;
-        this.pe = pe;
-        this.altura = altura;
-        this.pais = pais;
-        this.periodoEquipa = periodoEquipa;
-        this.foto = foto;
-    }
-
+    @Id
+    @GeneratedValue
     public UUID getId() {
         return id;
     }
@@ -117,6 +112,4 @@ public class Jogador {
     public void setFoto(byte[] foto) {
         this.foto = foto;
     }
-
 }
-
