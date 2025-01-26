@@ -5,7 +5,7 @@ pipeline {
         stage('Getting the project from GIT') {
             steps {
                 echo 'Pulling..'
-                git branch: 'main', url: 'https://github.com/joaoalvescoelho/Adivinha.git'
+                git branch: 'master', url: 'https://github.com/joaoalvescoelho/Adivinha.git'
             }
         }
 
