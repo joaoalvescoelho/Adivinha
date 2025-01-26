@@ -19,7 +19,7 @@ public class Mapper {
         jogadorJPA.setAltura(jogador.getAltura());
         jogadorJPA.setPais(jogador.getPais());
         jogadorJPA.setPeriodoEquipa(jogador.getPeriodoEquipa());
-        jogadorJPA.setFoto(jogador.getFoto());
+        //jogadorJPA.setFoto(jogador.getFoto());
 
         return jogadorJPA;
 

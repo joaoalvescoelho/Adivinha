@@ -7,16 +7,16 @@ public class Jogador {
     private UUID id;
     private String nome;
     private String posicao;
-    private short numero;
-    private short golos;
-    private short jogos;
+    private String numero;
+    private String golos;
+    private String jogos;
     private String pe;
-    private short altura;
+    private String altura;
     private String pais;
     private String periodoEquipa;
     private byte[] foto;
 
-    public Jogador(UUID id, String nome, String posicao, short numero, short golos, short jogos, String pe, short altura, String pais, String periodoEquipa, byte[] foto) {
+    public Jogador(UUID id, String nome, String posicao, String numero, String golos, String jogos, String pe, String altura, String pais, String periodoEquipa) {
         this.id = id;
         this.nome = nome;
         this.posicao = posicao;
@@ -54,27 +54,27 @@ public class Jogador {
         this.posicao = posicao;
     }
 
-    public short getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(short numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
-    public short getGolos() {
+    public String getGolos() {
         return golos;
     }
 
-    public void setGolos(short golos) {
+    public void setGolos(String golos) {
         this.golos = golos;
     }
 
-    public short getJogos() {
+    public String getJogos() {
         return jogos;
     }
 
-    public void setJogos(short jogos) {
+    public void setJogos(String jogos) {
         this.jogos = jogos;
     }
 
@@ -86,11 +86,11 @@ public class Jogador {
         this.pe = pe;
     }
 
-    public short getAltura() {
+    public String getAltura() {
         return altura;
     }
 
-    public void setAltura(short altura) {
+    public void setAltura(String altura) {
         this.altura = altura;
     }
 

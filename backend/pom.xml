@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.slb.adivinha</groupId>
-	<artifactId>jogador</artifactId>
+	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>jogador</name>
 	<description>SLB - Adivinha o jogador</description>

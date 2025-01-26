@@ -1,9 +1,6 @@
 package com.slb.adivinha.jogador.scrapping;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
@@ -11,20 +8,22 @@ import java.util.UUID;
 @Table(name = "players")
 public class JogadorJPA {
 
+
     public UUID id;
     public String nome;
     public String posicao;
-    public short numero;
-    public short golos;
-    public short jogos;
+    public String numero;
+    public String golos;
+    public String jogos;
     public String pe;
-    public short altura;
+    public String altura;
     public String pais;
     public String periodoEquipa;
     public byte[] foto;
 
     @Id
     @GeneratedValue
+    @Column(name = "uuid")
     public UUID getId() {
         return id;
     }
@@ -33,6 +32,7 @@ public class JogadorJPA {
         this.id = id;
     }
 
+    @Column(name = "nome")
     public String getNome() {
         return nome;
     }
@@ -41,6 +41,7 @@ public class JogadorJPA {
         this.nome = nome;
     }
 
+    @Column(name = "posicao")
     public String getPosicao() {
         return posicao;
     }
@@ -49,30 +50,34 @@ public class JogadorJPA {
         this.posicao = posicao;
     }
 
-    public short getNumero() {
+    @Column(name = "numero")
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(short numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
-    public short getGolos() {
+    @Column(name = "golos")
+    public String getGolos() {
         return golos;
     }
 
-    public void setGolos(short golos) {
+    public void setGolos(String golos) {
         this.golos = golos;
     }
 
-    public short getJogos() {
+    @Column(name = "jogos")
+    public String getJogos() {
         return jogos;
     }
 
-    public void setJogos(short jogos) {
+    public void setJogos(String jogos) {
         this.jogos = jogos;
     }
 
+    @Column(name = "pe")
     public String getPe() {
         return pe;
     }
@@ -81,14 +86,16 @@ public class JogadorJPA {
         this.pe = pe;
     }
 
-    public short getAltura() {
+    @Column(name = "altura")
+    public String getAltura() {
         return altura;
     }
 
-    public void setAltura(short altura) {
+    public void setAltura(String altura) {
         this.altura = altura;
     }
 
+    @Column(name = "pais")
     public String getPais() {
         return pais;
     }
@@ -97,6 +104,7 @@ public class JogadorJPA {
         this.pais = pais;
     }
 
+    @Column(name = "periodo_na_equipa")
     public String getPeriodoEquipa() {
         return periodoEquipa;
     }
@@ -105,6 +113,7 @@ public class JogadorJPA {
         this.periodoEquipa = periodoEquipa;
     }
 
+    @Column(name = "foto")
     public byte[] getFoto() {
         return foto;
     }

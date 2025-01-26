@@ -1,26 +1,35 @@
 package com.slb.adivinha.jogador.scrapping;
 
+import jakarta.transaction.Transactional;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
+@Component
 public class ScrappingSite {
 
-    private ScrappingRepo scrappingRepo;
+    private final ScrappingRepo scrappingRepo;
 
+    public ScrappingSite(ScrappingRepo scrappingRepo) {
+        this.scrappingRepo = scrappingRepo;
+    }
+
+//    @Transactional
     public void scrapping() {
         try {
             // URL base da tabela paginada
             String baseUrl = "https://serbenfiquista.com/people?page=";
 
             // Número total de páginas
-            int totalPages = 10; // Ajuste conforme necessário
+            int totalPages = 34; // Ajuste conforme necessário
 
             // Lista para armazenar os jogadores
             List<Jogador> jogadores = new ArrayList<Jogador>();
@@ -29,8 +38,6 @@ public class ScrappingSite {
             for (int page = 0; page <= totalPages; page++) {
                 // Construir a URL da página atual
                 String url = baseUrl + page;
-
-                System.out.println("PÁGINA: " + page);
 
                 // Conectar à página e obter o HTML
                 Document doc = Jsoup.connect(url).get();
@@ -52,16 +59,44 @@ public class ScrappingSite {
 
                         for (Element player2 : ele) {
 
-                            String posicao = player2.select(".field--name-field-sl-person-position .field--item").text();
+                            String posicao = "";
+                            if (Objects.equals(player2.select(".field--name-field-sl-detailed-position .field--item").text(), "")) {
+                                posicao = player2.select(".field--name-field-sl-person-position .field--item").text();
+                                if (!posicao.equals("")) {
+                                    posicao = posicao.substring(0, 1).toUpperCase() + posicao.substring(1);
+                                }
+                            } else {
+                                posicao = player2.select(".field--name-field-sl-detailed-position .field--item").text();
+                            }
+
                             String periodo = player2.select(".field--name-field-sl-periodo-no-benfica .field--item").text();
                             String pe = player2.select(".field--name-field-sl-favourite-foot .field--item").text();
                             String altura = player2.select(".field--name-field-sl-person-height .field--item").text();
-                            String camisola = player2.select(".field--name-field-sl-person-number .field--item").text();
-                            String nacionalidade = player2.select(".field--name-field-sl-person-birth-place .field--item").text();
-                            String foto = player2.select("field--name-field-sb-person-full-picture").text();
+                            String camisola =  player2.select(".field--name-field-sl-person-number .field--item").text();
+                            String nacionalidade = player2.select(".field--name-field-sl-country .field--item .field__flags__item").text();
 
-                            Jogador jogador1 = new Jogador(UUID.randomUUID(), nome, posicao, Short.parseShort(camisola), Short.parseShort(golos),
-                                    Short.parseShort(jogos), pe, Short.parseShort(altura), nacionalidade, periodo, foto.getBytes());
+//                            Element imgElement = player2.select(".field--name-field-sb-person-full-picture img").first();
+//                            String imageUrl = null;
+//                            if (imgElement != null) {
+//                                imageUrl = imgElement.attr("src");
+//
+//                                if (!imageUrl.startsWith("http")) {
+//                                    imageUrl = "https://serbenfiquista.com" + imageUrl;
+//                                }
+//                            }
+
+                            Jogador jogador1 = new Jogador(
+                                    UUID.randomUUID(),
+                                    nome,
+                                    posicao != null && !posicao.isEmpty() ? posicao : "N/A",
+                                    camisola != null && !camisola.isEmpty() ? camisola : "N/A",
+                                    golos != null && !golos.isEmpty() ? golos : "N/A",
+                                    jogos != null && !jogos.isEmpty() ? jogos : "N/A",
+                                    pe != null && !pe.isEmpty() ? pe : "N/A",
+                                    altura != null && !altura.isEmpty() ? altura : "N/A",
+                                    nacionalidade,
+                                    periodo
+                            );
 
                             JogadorJPA jogadorJPA = Mapper.jogador2Jpa(jogador1);
 
@@ -87,4 +122,5 @@ public class ScrappingSite {
             throw new RuntimeException(e);
         }
     }
+
 }
