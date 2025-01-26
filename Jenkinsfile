@@ -2,9 +2,31 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('Getting the project from GIT') {
             steps {
-                 echo "Adivinha jenkinsfile"
+                echo 'Pulling..'
+                git branch: 'main', url: 'https://github.com/joaoalvescoelho/Adivinha.git'
+            }
+        }
+
+        stage('Cleaning the project') {
+            steps {
+                echo 'Cleaning project ...'
+                sh 'mvn clean'
+            }
+        }
+
+        stage('Artifact Construction') {
+            steps {
+                echo "Artifact construction"
+                sh 'mvn package'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                sh 'mvn --batch-mode -Dmaven.test.failure.ignore=true test'
             }
         }
     }
